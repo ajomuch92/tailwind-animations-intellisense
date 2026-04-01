@@ -1,26 +1,30 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+import { TailwindAnimationsCompletionProvider } from './providers/completionProvider';
+import { isPackageInstalled } from './utils/packageDetector';
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "tailwind-animations-intellisense" is now active!');
+const SUPPORTED_LANGUAGES = [
+  'html', 'javascriptreact', 'typescriptreact',
+  'vue', 'astro', 'svelte'
+];
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('tailwind-animations-intellisense.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from tailwind-animations-intellisense!');
-	});
+export async function activate(context: vscode.ExtensionContext) {
+  const installed = await isPackageInstalled();
+  if (!installed) {
+	return;
+  }
 
-	context.subscriptions.push(disposable);
+  const provider = new TailwindAnimationsCompletionProvider();
+
+  const disposables = SUPPORTED_LANGUAGES.map(lang =>
+    vscode.languages.registerCompletionItemProvider(
+      { language: lang, scheme: 'file' },
+      provider,
+      '"', "'", ' '   // trigger characters
+    )
+  );
+
+  context.subscriptions.push(...disposables);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
