@@ -1,23 +1,29 @@
 {
   "name": "tailwind-animations-intellisense",
   "displayName": "tailwind-animations-intellisense",
-  "description": "This project is a helper for tailwind-animations package for VS Code",
-  "version": "0.0.1",
+  "description": "This project is a helper for autocomplete support for the tailwind-animations (by @midudev) package in VS Code",
+  "version": "0.1.0",
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:html", "onLanguage:vue", "workspaceContains:package.json"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "tailwind-animations-intellisense.helloWorld",
-        "title": "Hello World"
+    "configuration": {
+      "title": "Tailwind Animations IntelliSense",
+      "properties": {
+        "tailwindAnimations.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable Tailwind Animations IntelliSense"
+        }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
