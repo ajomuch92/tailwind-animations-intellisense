@@ -4,11 +4,18 @@
   "description": "This project is a helper for autocomplete support for the tailwind-animations (by @midudev) package in VS Code",
   "version": "0.1.0",
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.110.0"
   },
   "categories": [
     "Other"
   ],
+  "author": {
+    "name": "ajomuch92"
+  },
+  "repository": {
+    "url": "https://github.com/ajomuch92/tailwind-animations-intellisense"
+  },
+  "license": "MIT",
   "activationEvents": [
     "onLanguage:html", "onLanguage:vue", "workspaceContains:package.json"
   ],
