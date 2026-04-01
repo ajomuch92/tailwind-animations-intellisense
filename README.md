@@ -1,71 +1,78 @@
-# tailwind-animations-intellisense README
+# Tailwind Animations IntelliSense
 
-This is the README for your extension "tailwind-animations-intellisense". After writing up a brief description, we recommend including the following sections.
+Autocompletion and inline documentation for [tailwind-animations](https://github.com/midudev/tailwind-animations) (by midudev) in VS Code.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Autocompletion for all animation classes (`animate-fade-in`, `animate-zoom-in`, etc.)
+- Modifier suggestions: durations, delays, and steps
+- Support for scroll-driven classes (`view-animate-[...]`)
+- Inline documentation in hover tooltips and suggestions
+- Automatic activation only when the package is detected in the project
+- Compatible with HTML, JSX, TSX, Vue, Astro, and Svelte
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+Search for **Tailwind Animations IntelliSense** in the VS Code marketplace and install it.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Or install it from the terminal:
 
-## Requirements
+```bash
+ext install ajomuch92.tailwind-animations-intellisense
+```
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Usage
 
-## Extension Settings
+The plugin activates automatically when it detects `tailwind-animations` or `@midudev/tailwind-animations` in your `package.json`.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Type inside a `class` or `className` attribute and suggestions will appear:
 
-For example:
+```html
+<div class="animate-|">
+             ↑ suggestions appear here
+```
 
-This extension contributes the following settings:
+### Available Classes
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+| Category | Examples |
+|----------|---------|
+| Animations | `animate-fade-in`, `animate-zoom-in`, `animate-shake`, `animate-tada`... |
+| Duration | `animate-duration-slow`, `animate-duration-fast`... |
+| Delay | `animate-delay-100`, `animate-delay-500`... |
+| Steps | `animate-steps-none`, `animate-steps-retro`... |
+| Scroll-driven | `view-animate-[--name]`, `animate-range-[...]` |
 
-## Known Issues
+## Supported Languages
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- HTML (`.html`)
+- React (`.jsx`, `.tsx`)
+- Vue (`.vue`)
+- Astro (`.astro`)
+- Svelte (`.svelte`)
 
-## Release Notes
+## Configuration
 
-Users appreciate release notes as you update your extension.
+```json
+{
+  "tailwindAnimations.enabled": true
+}
+```
 
-### 1.0.0
+## Compatibility
 
-Initial release of ...
+| Package | Version | Support |
+|---------|---------|---------|
+| `tailwind-animations` | v1+ (Tailwind v4) | ✅ |
+| `@midudev/tailwind-animations` | v0.2.0 (Tailwind v3) | ✅ |
 
-### 1.0.1
+## Contributing
 
-Fixed issue #.
+PRs are welcome! If a class is missing or you want to improve the descriptions:
 
-### 1.1.0
+1. Fork the repository
+2. Edit `src/data/animations.ts`
+3. Open a Pull Request
 
-Added features X, Y, and Z.
+## License
 
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT

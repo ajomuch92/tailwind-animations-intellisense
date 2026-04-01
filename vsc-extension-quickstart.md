@@ -1,48 +1,109 @@
-# Welcome to your VS Code Extension
+# Quick Start Guide
 
-## What's in the folder
+Welcome to the development of **Tailwind Animations IntelliSense**.
 
-* This folder contains all of the files necessary for your extension.
-* `package.json` - this is the manifest file in which you declare your extension and command.
-  * The sample plugin registers a command and defines its title and command name. With this information VS Code can show the command in the command palette. It doesn’t yet need to load the plugin.
-* `src/extension.ts` - this is the main file where you will provide the implementation of your command.
-  * The file exports one function, `activate`, which is called the very first time your extension is activated (in this case by executing the command). Inside the `activate` function we call `registerCommand`.
-  * We pass the function containing the implementation of the command as the second parameter to `registerCommand`.
+## Project Structure
 
-## Setup
+```
+.
+├── src/
+│   ├── extension.ts              ← Entry point: activate() and deactivate()
+│   ├── providers/
+│   │   ├── completionProvider.ts ← Autocompletion logic
+│   │   └── hoverProvider.ts      ← Hover tooltips
+│   ├── data/
+│   │   ├── animations.ts         ← Animation class list
+│   │   ├── modifiers.ts          ← Durations, delays, steps
+│   │   └── viewAnimate.ts        ← Scroll-driven classes
+│   └── utils/
+│       └── packageDetector.ts    ← Detects if the package is installed
+├── package.json                  ← Extension manifest
+├── tsconfig.json                 ← TypeScript configuration
+└── .vscode/
+    └── launch.json               ← Debug configuration
+```
 
-* install the recommended extensions (amodio.tsl-problem-matcher, ms-vscode.extension-test-runner, and dbaeumer.vscode-eslint)
+## Getting Started
 
+### 1. Install dependencies
 
-## Get up and running straight away
+```bash
+npm install
+```
 
-* Press `F5` to open a new window with your extension loaded.
-* Run your command from the command palette by pressing (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac) and typing `Hello World`.
-* Set breakpoints in your code inside `src/extension.ts` to debug your extension.
-* Find output from your extension in the debug console.
+### 2. Open in VS Code
 
-## Make changes
+```bash
+code .
+```
 
-* You can relaunch the extension from the debug toolbar after changing code in `src/extension.ts`.
-* You can also reload (`Ctrl+R` or `Cmd+R` on Mac) the VS Code window with your extension to load your changes.
+### 3. Compile and launch in development mode
 
+Press `F5` to open a new VS Code window with the extension loaded.  
+Whenever you make changes, press `Ctrl+Shift+F5` to reload.
 
-## Explore the API
+### 4. Test autocompletion
 
-* You can open the full set of our API when you open the file `node_modules/@types/vscode/index.d.ts`.
+Open any project that has `tailwind-animations` in its `package.json`,  
+create an `.html` or `.tsx` file, and type inside a `class=""` attribute.
 
-## Run tests
+## Build
 
-* Install the [Extension Test Runner](https://marketplace.visualstudio.com/items?itemName=ms-vscode.extension-test-runner)
-* Run the "watch" task via the **Tasks: Run Task** command. Make sure this is running, or tests might not be discovered.
-* Open the Testing view from the activity bar and click the Run Test" button, or use the hotkey `Ctrl/Cmd + ; A`
-* See the output of the test result in the Test Results view.
-* Make changes to `src/test/extension.test.ts` or create new test files inside the `test` folder.
-  * The provided test runner will only consider files matching the name pattern `**.test.ts`.
-  * You can create folders inside the `test` folder to structure your tests any way you want.
+```bash
+# Compile once
+npm run compile
 
-## Go further
+# Watch mode (recompiles on save)
+npm run watch
+```
 
-* Reduce the extension size and improve the startup time by [bundling your extension](https://code.visualstudio.com/api/working-with-extensions/bundling-extension).
-* [Publish your extension](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) on the VS Code extension marketplace.
-* Automate builds by setting up [Continuous Integration](https://code.visualstudio.com/api/working-with-extensions/continuous-integration).
+## Packaging and Publishing
+
+```bash
+# Install vsce if you don't have it
+npm install -g @vscode/vsce
+
+# Generate a .vsix for local testing
+vsce package
+
+# Install the .vsix locally
+code --install-extension tailwind-animations-intellisense-0.1.0.vsix
+
+# Publish to the marketplace (requires an access token)
+vsce publish
+```
+
+To publish you need:
+1. An account at [marketplace.visualstudio.com](https://marketplace.visualstudio.com)
+2. A Personal Access Token with Marketplace permissions
+3. The correct `publisher` field in `package.json`
+
+## Adding New Classes
+
+Edit `src/data/animations.ts` and add an entry to the array:
+
+```typescript
+{
+  name: 'animate-new-class',
+  description: 'Description of the effect',
+  category: 'animation'
+}
+```
+
+## Debugging
+
+Extension logs appear in:  
+**View → Output → Tailwind Animations IntelliSense**
+
+To add logs in your code:
+
+```typescript
+console.log('Tailwind Animations: debug message');
+```
+
+## Useful Resources
+
+- [VS Code Extension API](https://code.visualstudio.com/api)
+- [CompletionItemProvider](https://code.visualstudio.com/api/references/vscode-api#CompletionItemProvider)
+- [tailwind-animations repository](https://github.com/midudev/tailwind-animations)
+- [Publishing Extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
