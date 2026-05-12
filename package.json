@@ -2,7 +2,7 @@
   "name": "tailwind-animations-intellisense",
   "displayName": "tailwind-animations-intellisense",
   "description": "This project is a helper for autocomplete support for the tailwind-animations (by @midudev) package in VS Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.110.0"
   },
